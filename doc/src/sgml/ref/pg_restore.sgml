@@ -18,8 +18,9 @@ PostgreSQL documentation
   <refname>pg_restore</refname>
 
   <refpurpose>
-   restore a <productname>PostgreSQL</productname> database from an
-   archive file created by <application>pg_dump</application>
+   restore <productname>PostgreSQL</productname> database from an
+   archive file created by <application>pg_dump</application> or
+   <application>pg_dumpall</application>
   </refpurpose>
  </refnamediv>
 
@@ -37,9 +38,10 @@ PostgreSQL documentation
   <title>Description</title>
 
   <para>
-   <application>pg_restore</application> is a utility for restoring a
+   <application>pg_restore</application> is a utility for restoring
    <productname>PostgreSQL</productname> database from an archive
-   created by <xref linkend="app-pgdump"/> in one of the non-plain-text
+   created by <xref linkend="app-pgdump"/> or
+   <xref linkend="app-pg-dumpall"/> in one of the non-plain-text
    formats.  It will issue the commands necessary to reconstruct the
    database to the state it was in at the time it was saved.  The
    archive files also allow <application>pg_restore</application> to
@@ -140,6 +142,8 @@ PostgreSQL documentation
         commands that mention this database.
         Access privileges for the database itself are also restored,
         unless <option>--no-acl</option> is specified.
+        <option>--create</option> is required when restoring multiple databases
+        from dump of <application>pg_dumpall</application>.
        </para>
 
        <para>
@@ -162,6 +166,25 @@ PostgreSQL documentation
         be a <link linkend="libpq-connstring">connection string</link>.
         If so, connection string parameters will override any conflicting
         command line options.
+       </para>
+      </listitem>
+     </varlistentry>
+
+     <varlistentry>
+      <term><option>--exclude-database=<replaceable class="parameter">pattern</replaceable></option></term>
+      <listitem>
+       <para>
+        Do not restore databases whose name matches
+        <replaceable class="parameter">pattern</replaceable>.
+        Multiple patterns can be excluded by writing multiple
+        <option>--exclude-database</option> switches.  The
+        <replaceable class="parameter">pattern</replaceable> parameter is
+        interpreted as a pattern according to the same rules used by
+        <application>psql</application>'s <literal>\d</literal>
+        commands (see <xref linkend="app-psql-patterns"/>),
+        so multiple databases can also be excluded by writing wildcard
+        characters in the pattern.  When using wildcards, be careful to
+        quote the pattern if needed to prevent shell wildcard expansion.
        </para>
       </listitem>
      </varlistentry>
@@ -312,6 +335,16 @@ PostgreSQL documentation
          </listitem>
         </varlistentry>
        </variablelist></para>
+      </listitem>
+     </varlistentry>
+
+     <varlistentry>
+      <term><option>-g</option></term>
+      <term><option>--globals-only</option></term>
+      <listitem>
+       <para>
+        Restore only global objects (roles and tablespaces), no databases.
+       </para>
       </listitem>
      </varlistentry>
 

@@ -2722,6 +2722,8 @@ ShutdownMode
 SignTSVector
 SimpleActionList
 SimpleActionListCell
+SimpleDatabaseOidList
+SimpleDatabaseOidListCell
 SimpleEcontextStackEntry
 SimpleOidList
 SimpleOidListCell
