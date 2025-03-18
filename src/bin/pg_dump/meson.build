@@ -6,6 +6,7 @@ pg_dump_common_sources = files(
   'compress_lz4.c',
   'compress_none.c',
   'compress_zstd.c',
+  'connectdb.c',
   'dumputils.c',
   'filter.c',
   'parallel.c',
@@ -48,6 +49,7 @@ bin_targets += pg_dump
 
 
 pg_dumpall_sources = files(
+  'connectdb.c',
   'pg_dumpall.c',
 )
 
@@ -67,6 +69,7 @@ bin_targets += pg_dumpall
 
 
 pg_restore_sources = files(
+  'connectdb.c',
   'pg_restore.c',
 )
 
